@@ -1,0 +1,24 @@
+@startuml
+
+actor Admin
+participant "UI Interface" as UI
+participant "Controleur de recherche" as SearchController
+participant "Base de données" as DB
+
+Admin -> UI : Entrer le titre du film
+UI -> SearchController : Vérifier l’existence du film
+SearchController -> DB : Requete d’existence du film
+DB --> SearchController : Résultat vérification
+
+alt [Film] existe
+    SearchController -> UI : Message d'erreur: "this movie already exists"
+    UI -> Admin : Afficher le message d'erreur
+else [Film] n'existe pas
+    UI -> Admin : Demander le genre, la durée et la description
+    Admin -> UI : Entrer le reste de données
+    UI -> DB : Ajouter film à la liste
+    Db -> UI : Confirmer l’ajout
+    UI -> Admin : Message: "Movie added successfully"
+end
+
+@enduml

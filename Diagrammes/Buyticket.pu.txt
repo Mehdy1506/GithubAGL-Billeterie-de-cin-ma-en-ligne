@@ -1,0 +1,33 @@
+@startuml
+actor Client
+participant "Interface Utilisateur" as UI
+participant "Controleur de Recherche" as Controleur
+participant "Base de Données" as DB
+
+Client -> UI: Cliquer sur "bookTicker"
+
+UI -> Controleur: Afficher projections disponibles
+
+Controleur -> DB: Obtenir projections disponibles
+
+DB -> Controleur: Liste des projections (titre, date, salle)
+
+Controleur --> UI: Projections disponibles
+
+Client -> UI: Choisir projection et nombre de tickets
+
+UI -> Controleur: Réserver tickets
+
+Controleur -> DB: Vérifier disponibilité tickets
+
+alt Tickets disponibles
+    DB --> Controleur: Confirmation disponibilité
+    Controleur -> UI: Réserver tickets réussie
+    UI -> Client: Afficher reçu
+else Pas de tickets disponibles
+    DB --> Controleur: Aucune disponibilité
+    Controleur --> UI: Message d'erreur
+    UI -> Client: "Pas de places disponibles"
+end
+
+@enduml
