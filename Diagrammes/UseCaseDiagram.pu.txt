@@ -1,0 +1,32 @@
+@startuml
+
+actor Client
+actor Admin
+
+Client --> (See available screenings)
+Client --> (Buy tickets)
+
+
+(Buy tickets) --> (Authentication) : include
+(Buy tickets) --> (Get receipt) : exclude
+(See available screenings) --> (Authentication) : include
+
+Admin --> (Manage Movies)
+Admin --> (Manage Halls)
+Admin --> (Manage Screenings)
+
+(Manage Movies)--> (Authentication) : include
+(Manage Halls)--> (Authentication) : include
+(Manage Screenings)--> (Authentication) : include
+
+(Manage Movies) --> (Add movies)
+(Manage Movies) --> (Delete movies)
+(Manage Movies) --> (see movies)
+
+(Manage Halls) --> (Add Hall)
+(Manage Halls) --> (Delete Hall)
+
+(Manage Screenings) --> (Add Screening)
+(Manage Screenings) --> (Edit screening)
+
+@enduml
